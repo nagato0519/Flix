@@ -37,7 +37,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.tableView.reloadData()
                 
                     // TODO: Store the movies in a property to use elsewhere
-                print(dataDictionary)
+
                 
                     // TODO: Reload your table view data
 
@@ -68,6 +68,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.posterView.af_setImage(withURL: posterUrl)
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        print("Something happened")
+        
+        //find the selected movie
+        
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)!
+        let movie = movies[indexPath.row]
+        
+        //Pass the selected movie o the detail view controller
+        let detailViewController = segue.destination as! MovieDetailViewController
+        
+        detailViewController.movie = movie
+
+        tableView.deselectRow(at: indexPath, animated: true)
     }
      
     
